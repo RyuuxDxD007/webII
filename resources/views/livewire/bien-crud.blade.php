@@ -213,7 +213,7 @@
                             @enderror
                         </div>
                         <div class="col-lg-3 col-sm-12 mb-3 mb-lg-0">
-                            <input wire:model="puissance_solaire" type="text" class="form-control @error('consomation_energie') is-invalid @enderror" placeholder="Puissance solaire kWh" aria-label="Puissance solaire kWh" @if($disabledForm) disabled @endif>
+                            <input wire:model="puissance_solaire" type="text" class="form-control @error('consomation_energie') is-invalid @enderror" placeholder="Puissance solaire kWh" aria-label="Puissance solaire kWh" @if($disabledForm||!$solaire) disabled @endif>
                             @error('puissance_solaire')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

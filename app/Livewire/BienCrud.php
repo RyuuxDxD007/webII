@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\Bien;
@@ -17,11 +18,11 @@ class BienCrud extends Component
     public $disabledForm = false;
     public $bienId, $sold, $lib, $description, $prix, $photo, $photoComplete, $classe_energie, $chambre, $sdb, $wc, $st, $sh, $type_bien_id, $type_annonce_id, $co2, $consomation_energie, $type_chauffage, $double_vitrage, $HVAC, $solaire, $puissance_solaire;
     public $typeAnnonce, $typeBien, $classeEnergieList = [
-        1 => "A", 
-        2 => "B", 
-        3 => "C", 
-        4 => "D", 
-        5 => "E", 
+        1 => "A",
+        2 => "B",
+        3 => "C",
+        4 => "D",
+        5 => "E",
         6 => "F"
     ];
 
@@ -60,8 +61,7 @@ class BienCrud extends Component
             $this->photoComplete = $bien->photoComplete;
         }
 
-        if($this->action == 'consulter')
-        {
+        if ($this->action == 'consulter') {
             // Si c'est une consultation de bien, on passe notre variable à true
             // Et dans la vue, on a une condition sur chaque champ qui les désactive
             $this->disabledForm = true;
@@ -150,13 +150,13 @@ class BienCrud extends Component
         $bien->wc = $this->wc;
         $bien->st = $this->st;
         $bien->sh = $this->sh;
-        $bien->co2 = $this ->co2;
-        $bien->consomation_energie = $this ->consomation_energie;
-        $bien->type_chauffage = $this ->type_chauffage;
-        $bien->double_vitrage = $this ->double_vitrage;
-        $bien->HVAC = $this ->HVAC;
-        $bien->solaire = $this ->solaire;
-        $bien->puissance_solaire = $this ->puissance_solaire;
+        $bien->co2 = $this->co2;
+        $bien->consomation_energie = $this->consomation_energie;
+        $bien->type_chauffage = $this->type_chauffage;
+        $bien->double_vitrage = $this->double_vitrage;
+        $bien->HVAC = $this->HVAC;
+        $bien->solaire = $this->solaire;
+        $bien->puissance_solaire = $this->puissance_solaire;
         $bien->user_id = Auth::id();
         $bien->type_bien_id = $this->type_bien_id;
         $bien->type_annonce_id = $this->type_annonce_id;
@@ -171,4 +171,5 @@ class BienCrud extends Component
     {
         return view('livewire.bien-crud')->extends("layouts.app");
     }
+
 }
