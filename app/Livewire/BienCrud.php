@@ -15,7 +15,7 @@ class BienCrud extends Component
 
     public $action;
     public $disabledForm = false;
-    public $bienId, $sold, $lib, $description, $prix, $photo, $photoComplete, $classe_energie, $chambre, $sdb, $wc, $st, $sh, $type_bien_id, $type_annonce_id;
+    public $bienId, $sold, $lib, $description, $prix, $photo, $photoComplete, $classe_energie, $chambre, $sdb, $wc, $st, $sh, $type_bien_id, $type_annonce_id, $co2, $consomation_energie, $type_chauffage, $double_vitrage, $HVAC, $solaire, $puissance_solaire;
     public $typeAnnonce, $typeBien, $classeEnergieList = [
         1 => "A", 
         2 => "B", 
@@ -46,6 +46,13 @@ class BienCrud extends Component
             $this->wc = $bien->wc;
             $this->st = $bien->st;
             $this->sh = $bien->sh;
+            $this->co2 = $bien->co2;
+            $this->consomation_energie = $bien->consomation_energie;
+            $this->type_chauffage = $bien->type_chauffage;
+            $this->double_vitrage = $bien->double_vitrage;
+            $this->HVAC = $bien->HVAC;
+            $this->solaire = $bien->solaire;
+            $this->puissance_solaire = $bien->puissance_solaire;
             $this->type_bien_id = $bien->type_bien_id;
             $this->type_annonce_id = $bien->type_annonce_id;
 
@@ -80,6 +87,10 @@ class BienCrud extends Component
             'wc' => 'required|integer',
             'st' => 'required|integer',
             'sh' => 'required|integer',
+            'co2' => 'required|integer',
+            'consomation_energie' => 'required|integer',
+            'type_chauffage' => 'required',
+            'puissance_solaire' => 'integer',
             'type_bien_id' => 'required',
             'type_annonce_id' => 'required',
         ];
@@ -102,6 +113,12 @@ class BienCrud extends Component
             'chambre.integer' => 'Le champ chambre doit être un chiffre',
             'sdb.integer' => 'Le champ sdb doit être un chiffre',
             'wc.integer' => 'Le champ wc doit être un chiffre',
+            'co2.required' => 'Les emissions de CO2 sont obligatoires',
+            'co2.integer' => 'La quantite emisse de CO2 est un chiffre',
+            'consomation_energie.required' => 'La consomation totale energetique est obligatoire',
+            'consomation_energie.integer' => 'La consomation totale energetique est un chiffre',
+            'type_chauffage.required' => 'Le type de chauffage est obligatoire',
+            'puissance_solaire.integer' => 'La puissance solaire est un chiffre',
             'type_bien_id.required' => 'Le type de bien est obligatoire',
             'type_annonce_id.required' => 'Le type d\'annonce est obligatoire',
             'classe_energie.required' => 'La classe énergétique est obligatoire',
@@ -133,6 +150,13 @@ class BienCrud extends Component
         $bien->wc = $this->wc;
         $bien->st = $this->st;
         $bien->sh = $this->sh;
+        $bien->co2 = $this ->co2;
+        $bien->consomation_energie = $this ->consomation_energie;
+        $bien->type_chauffage = $this ->type_chauffage;
+        $bien->double_vitrage = $this ->double_vitrage;
+        $bien->HVAC = $this ->HVAC;
+        $bien->solaire = $this ->solaire;
+        $bien->puissance_solaire = $this ->puissance_solaire;
         $bien->user_id = Auth::id();
         $bien->type_bien_id = $this->type_bien_id;
         $bien->type_annonce_id = $this->type_annonce_id;

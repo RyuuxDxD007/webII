@@ -17304,7 +17304,7 @@ INSERT INTO `villes` (`id`, `code_postal`, `ville`, `pays_id`) VALUES
 
 
 INSERT INTO `users` (`id`, `name`, `adresse`, `ville_id`, `email`, `password`, `created_at`) VALUES
-(1, 'USER1', '159 Chaussée de Binche', 1564, 'test@iramps.email', '$2y$10$BLDTRopcnAAA1k529q3kvOlHSFfG9xhVzY8NoLQsNkOBupEamn2k6', '2022-12-01 04:58:23'),
+(1, 'USER1', '159 Chaussée de Binche', 1564, 'test@iramps.email', '$2y$12$cAFvtjFYxn4bUssbyVVTDO5vIXku7YSYBtJZVJCfd71LPpL5cKqZe', '2022-12-01 04:58:23'),
 (2, 'USER2', '159 Chaussée de Binche', 1564, 'test2@iramps.email', '$2y$10$xH2jFsHpYtNYjR4AEMhuAe5MNYJRWTag7LEGUZpmqopdV/kREfK7G', '2022-12-02 05:14:07');
 
 

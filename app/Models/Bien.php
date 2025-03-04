@@ -23,6 +23,13 @@ class Bien extends Model
         'prix',
         'surface',
         'nb_pieces',
+        'co2',
+        'consomation_energie',
+        'type_chauffage',
+        'double_vitrage',
+        'HVAC',
+        'solaire',
+        'puissance_solaire',
         'photo',
         'user_id'
     ];
