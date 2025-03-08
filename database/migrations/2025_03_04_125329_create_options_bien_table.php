@@ -13,17 +13,22 @@ return new class extends Migration
     {
         Schema::create('options_bien', function (Blueprint $table) {
             $table->id();
-            //link id to bien id
-            $table->foreign('id')->references('id')->on('biens')->onDelete('cascade');
+            $table->unsignedBigInteger('bien_id');
+            $table->foreign('bien_id')->references('id')->on('biens')->onDelete('cascade');
 
             $table->integer('co2')->nullable();
             $table->integer('consomation_energie')->nullable();
-            $table->string('type_chauffage', 40)->nullable();
+
+            //creation et assignement pour le type de chauffage
+            $table->unsignedBigInteger('type_chauffage_id')->nullable();
+            $table->foreign('type_chauffage_id')->references('id')->on('type_chauffages');
+
             $table->tinyInteger('double_vitrage')->default(0);
             $table->tinyInteger('HVAC')->default(0);
             $table->tinyInteger('solaire')->default(0);
             $table->integer('puissance_solaire')->nullable();
             $table->timestamps();
+            
         });
     }
 

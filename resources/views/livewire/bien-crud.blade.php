@@ -3,7 +3,7 @@
         <h2>{{ $this->bien->lib ?? '' }}</h2>
     </div>
     <div class="container card p-3">
-        <form wire:submit.prevent="save">
+        <form>
             @csrf
             <div class="row">
                 <div class="col-lg-5">
@@ -203,7 +203,7 @@
                         </div>
                         <div class="col-lg-3 col-sm-12 mb-3 mb-lg-0">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" wire:model="solaire" @if($disabledForm) disabled @endif>
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" wire:click="toggleSolaire" @if($disabledForm) disabled @endif @if($solaire) checked @endif>
                                 <label class="form-check-label" for="flexSwitchCheckDefault">Panneau solaire</label>
                             </div>
                             @error('solaire')
@@ -223,11 +223,27 @@
                     </div>
 
                     <div class="row mt-3">
+                        <div class="col-lg-6 mb-3 mb-lg-0">
+                            <select wire:model="type_chauffage_id" class="form-select @error('type_chauffage_id') is-invalid @enderror" @if($disabledForm) disabled @endif>
+                                <option value="">-- Type de chauffage --</option>
+                                @foreach($typeChauffage as $leType)
+                                <option value="{{ $leType->id }}">{{ $leType->type_chauffage }}</option>
+                                @endforeach
+                            </select>
+                            @error('type_chauffage_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
                         <div class="offset-lg-8 col-lg-4 d-grid gap-2 d-md-flex justify-content-md-end">
                             @if($disabledForm)
                             <a href="{{route('biens.index')}}" class="btn btn-primary">Retour aux biens</a>
                             @else
-                            <button type="submit" class="btn btn-primary">Valider</button>
+                            <button type="button" class="btn btn-primary" wire:click="save">Valider</button>
                             <a href="{{ route('biens.index') }}" class="btn btn-secondary">Annuler</a>
                             @endif
                         </div>
@@ -241,5 +257,14 @@
     @endif
     @if (Session::has('error'))
     <div class="alert alert-danger alert-bottom mt-4" role="alert">{{Session::get('error')}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
 </div>

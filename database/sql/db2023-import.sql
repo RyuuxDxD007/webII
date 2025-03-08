@@ -17305,7 +17305,7 @@ INSERT INTO `villes` (`id`, `code_postal`, `ville`, `pays_id`) VALUES
 
 INSERT INTO `users` (`id`, `name`, `adresse`, `ville_id`, `email`, `password`, `created_at`) VALUES
 (1, 'USER1', '159 Chaussée de Binche', 1564, 'test@iramps.email', '$2y$12$cAFvtjFYxn4bUssbyVVTDO5vIXku7YSYBtJZVJCfd71LPpL5cKqZe', '2022-12-01 04:58:23'),
-(2, 'USER2', '159 Chaussée de Binche', 1564, 'test2@iramps.email', '$2y$10$xH2jFsHpYtNYjR4AEMhuAe5MNYJRWTag7LEGUZpmqopdV/kREfK7G', '2022-12-02 05:14:07');
+(2, 'USER2', '159 Chaussée de Binche', 1564, 'test2@iramps.email', '$2y$12$cAFvtjFYxn4bUssbyVVTDO5vIXku7YSYBtJZVJCfd71LPpL5cKqZe', '2022-12-02 05:14:07');
 
 
 
@@ -17335,3 +17335,19 @@ INSERT INTO `biens` (`id`, `sold`, `lib`, `description`, `prix`, `photo`, `class
 (12, 0, 'Studio 4', 'Studio Bla Bla Bla Bla Bla Bla Bla Bla', '590.000000', 'bien12.jpg', 'D', 1, 1, 1, 0, 20, 2, 4, 2),
 (13, 0, 'Villa 3', 'Villa Bla Bla Bla Bla Bla Bla Bla Bla', '1400.000000', 'bien13.jpg', 'B', 4, 2, 2, 980, 240, 1, 2, 2),
 (14, 0, 'Villa 4', 'Villa Bla Bla Bla Bla Bla Bla Bla Bla', '820000.000000', 'bien14.jpg', 'B', 4, 3, 2, 1200, 290, 1, 2, 1);
+
+INSERT INTO `options_bien` (`bien_id`, `co2`, `consomation_energie`, `type_chauffage_id`, `double_vitrage`, `HVAC`, `solaire`, `puissance_solaire`) VALUES
+(1, 15, 150, 1, 1, 0, 0, NULL),
+(2, 16, 160, 2, 1, 1, 0, NULL),
+(3, 18, 180, 3, 1, 0, 0, NULL),
+(4, 22, 220, 2, 1, 1, 0, NULL),
+(5, 25, 250, 4, 1, 1, 1, 3000),
+(6, 28, 280, 2, 0, 0, 0, NULL),
+(7, 26, 260, 7, 1, 1, 0, NULL),
+(8, 20, 200, 6, 1, 1, 0, NULL),
+(9, 29, 290, 3, 1, 0, 1, 2500),
+(10, 12, 120, 1, 1, 1, 1, 4000),
+(11, 21, 210, 2, 1, 1, 0, NULL),
+(12, 19, 190, 1, 0, 0, 0, NULL),
+(13, 23, 230, 4, 1, 1, 1, 3500),
+(14, 24, 240, 4, 1, 1, 1, 3800);

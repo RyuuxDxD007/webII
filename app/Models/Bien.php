@@ -23,13 +23,6 @@ class Bien extends Model
         'prix',
         'surface',
         'nb_pieces',
-        'co2',
-        'consomation_energie',
-        'type_chauffage',
-        'double_vitrage',
-        'HVAC',
-        'solaire',
-        'puissance_solaire',
         'photo',
         'user_id'
     ];
@@ -85,5 +78,9 @@ class Bien extends Model
         }
 
         return '<p style="color:'.$couleur.';font-weight:bold">'.$texteAnnonce.'</p>';
+    }
+    public function optionsBien()
+    {
+    return $this->hasOne(OptionsBien::class, 'bien_id');
     }
 }
