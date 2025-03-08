@@ -185,6 +185,7 @@ class BienCrud extends Component
     {
         return view('livewire.bien-crud')->extends("layouts.app");
     }
+    
     public function toggleSolaire()
     {
         if (!$this->disabledForm) {
