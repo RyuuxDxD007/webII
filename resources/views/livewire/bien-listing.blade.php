@@ -16,14 +16,32 @@
             </div>
         </div>
 
-        <div class="row mb-4">
+        <div class="row mb-4"> <!-- Début d'une ligne Bootstrap avec une marge en bas -->
+
             <div class="col-12 d-flex justify-content-end align-items-center">
+                <!-- Colonne occupant toute la largeur (col-12) avec un alignement des éléments en flexbox : 
+             - justify-content-end : aligne les éléments à droite
+             - align-items-center : centre verticalement les éléments -->
+
                 <label for="categorieEnergie" class="me-2">Filtre :</label>
-                <select wire:model.live="categorieEnergie" id="categorieEnergie" class="form-select" style="width: auto;">
+                <!-- Label pour le champ de sélection avec une marge à droite (me-2) -->
+
+                <select wire:model.live="categorieEnergie" id="categorieEnergie"
+                    class="form-select" style="width: auto;">
+                    <!-- Sélecteur Livewire (wire:model.live) permettant la mise à jour en direct
+                 - ID "categorieEnergie" pour lier avec le label
+                 - Classe Bootstrap "form-select" pour le style
+                 - Style inline "width: auto;" pour ajuster automatiquement la largeur -->
+
                     <option value="">Toutes les catégories énergétiques</option>
+                    <!-- Option par défaut pour afficher tous les résultats -->
+
                     @foreach(['A', 'B', 'C', 'D', 'E', 'F'] as $category)
+                    <!-- Boucle sur les catégories énergétiques disponibles -->
                     <option value="{{ $category }}">{{ $category }}</option>
+                    <!-- Chaque option représente une catégorie énergétique -->
                     @endforeach
+
                 </select>
             </div>
         </div>

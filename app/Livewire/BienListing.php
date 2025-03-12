@@ -36,6 +36,7 @@ class BienListing extends Component
             $query->where("type_annonce_id", 1);
         elseif ($this->etat === 'location')
             $query->where("type_annonce_id", 2);
+
         //Applique le filtre pour l'energie
         if ($this->categorieEnergie) {
             $query->where('classe_energie', $this->categorieEnergie);
@@ -55,6 +56,7 @@ class BienListing extends Component
         $this->loadBiens();
     }
 
+    //fonction qui est trigger quand le choix de filtre pour les categorie d'energie a été trigger
     public function updatedCategorieEnergie($value)
     {
         $this->loadBiens();

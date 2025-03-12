@@ -14,6 +14,7 @@ class ChauffageSeeder extends Seeder
      */
     public function run(): void
     {
+        //cree le chemin pour le seeder et le fait lancer le code sql
         $path = database_path('sql/chauffage-import.sql');
         $sql = File::get($path);
         DB::unprepared($sql);

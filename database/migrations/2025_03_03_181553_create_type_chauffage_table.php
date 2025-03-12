@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('type_chauffages', function (Blueprint $table) {
+            //creer les elements de la table
             $table->id();
             $table->string('type_chauffage', 40)->nullable();
             $table->timestamps();

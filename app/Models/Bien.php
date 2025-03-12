@@ -13,6 +13,7 @@ class Bien extends Model
 {
     use HasFactory;
 
+    // Définition des attributs
     protected $fillable = [
         'titre',
         'description',
@@ -27,26 +28,43 @@ class Bien extends Model
         'user_id'
     ];
 
+    /**
+     * Relation Many-To-One : Un bien appartient à une ville.
+     */
     public function ville()
     {
         return $this->belongsTo(Ville::class);
     }
 
+    /**
+     * Relation Many-To-One : Un bien appartient à un type de bien.
+     */
     public function typeBien()
     {
         return $this->belongsTo(TypeBien::class);
     }
 
+    /**
+     * Relation Many-To-One : Un bien appartient à un type d'annonce.
+     */
     public function typeAnnonce()
     {
         return $this->belongsTo(TypeAnnonce::class);
     }
 
+    /**
+     * Relation Many-To-One : Un bien est publié par un utilisateur.
+     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Vérifie si le bien a été posté par l'utilisateur actuellement authentifié.
+     *
+     * @return bool
+     */
     public function isPostedByCurrentUser()
     {
         return $this->user_id === auth()->id();
@@ -59,6 +77,11 @@ class Bien extends Model
         return $value ? asset('/storage/images/' . $value) : asset('/storage/images/default.jpg');
     }
 
+    /**
+     * Génère du HTML coloré pour afficher le type d'annonce (Vente, Location, etc.).
+     *
+     * @return string
+     */
     public function getTypeAnnonceHtmlAttribute()
     {
         $couleur = "red";
@@ -79,6 +102,10 @@ class Bien extends Model
 
         return '<p style="color:'.$couleur.';font-weight:bold">'.$texteAnnonce.'</p>';
     }
+
+    /**
+     * Relation One-To-One : Un bien peut avoir une seule configuration d'options.
+     */
     public function optionsBien()
     {
     return $this->hasOne(OptionsBien::class, 'bien_id');

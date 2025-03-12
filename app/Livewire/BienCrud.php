@@ -16,6 +16,7 @@ class BienCrud extends Component
 {
     use WithFileUploads;
 
+    //declaratgion des variables
     public $action;
     public $disabledForm = false;
     public $bienId, $sold, $lib, $description, $prix, $photo, $photoComplete, $classe_energie, $chambre, $sdb, $wc, $st, $sh, $type_bien_id, $type_annonce_id, $co2, $consomation_energie, $type_chauffage_id, $double_vitrage, $HVAC, $solaire, $puissance_solaire;
@@ -33,6 +34,7 @@ class BienCrud extends Component
         // On définit une seule fois le type annonce et de biens
         $this->typeAnnonce = TypeAnnonce::orderBy("type_annonce")->get();
         $this->typeBien = TypeBien::orderBy("type_bien")->get();
+        //charge la liste des type de chauffage
         $this->typeChauffage = TypeChauffage::OrderBy("type_chauffage")->get();
 
         // Si on détecte "consulter" ou "éditer"
@@ -44,7 +46,9 @@ class BienCrud extends Component
             $this->lib = $bien->lib;
             $this->description = $bien->description;
             $this->prix = str_replace(',', '', number_format($bien->prix, 2));
-            $this->classe_energie = $bien->classe_energie;
+            
+        //ne resortait pas comme A B C mais 1 2 3. a ete modifier pour
+            $this->classe_energie = array_search($bien->classe_energie, $this->classeEnergieList);
             $this->chambre = $bien->chambre;
             $this->sdb = $bien->sdb;
             $this->wc = $bien->wc;
@@ -53,8 +57,10 @@ class BienCrud extends Component
             $this->type_bien_id = $bien->type_bien_id;
             $this->type_annonce_id = $bien->type_annonce_id;
 
+            //peuple les variables livewire de options bien
             $this->co2 = $bien->optionsBien->co2;
             $this->consomation_energie = $bien->optionsBien->consomation_energie;
+            //charge l'id du type de chauffage 
             $this->type_chauffage_id = $bien->optionsBien->type_chauffage_id;
             $this->double_vitrage = $bien->optionsBien->double_vitrage;
             $this->HVAC = $bien->optionsBien->HVAC;
@@ -72,6 +78,7 @@ class BienCrud extends Component
         }
     }
 
+    //fonction annuler qui renvoie en arriere
     public function cancel()
     {
         $this->redirect(request()->header('Referer'));
@@ -79,6 +86,7 @@ class BienCrud extends Component
 
     public function save()
     {
+        //defini les regles 
         $rules = [
             'sold' => 'nullable',
             'lib' => 'required',
@@ -97,7 +105,7 @@ class BienCrud extends Component
             'HVAC' => 'nullable',
             'solaire' => 'nullable',
             'double_vitrage' => 'nullable',
-            'puissance_solaire' => 'nullable|integer',
+            'puissance_solaire' => 'required_if:solaire,1|nullable|integer',
             'type_bien_id' => 'required',
             'type_annonce_id' => 'required',
         ];
@@ -109,6 +117,7 @@ class BienCrud extends Component
             // Pour l'édition, si 'photo' est un fichier téléchargé et non une chaîne
             $rules['photo'] = ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'];
 
+            //defini les message d'erreurs
         $this->validate($rules, [
             'lib.required' => 'Le champ libellé est obligatoire',
             'photo.required' => 'La photo est obligatoire',
@@ -126,6 +135,7 @@ class BienCrud extends Component
             'consomation_energie.integer' => 'La consomation totale energetique est un chiffre',
             'type_chauffage_id.required' => 'Le type de chauffage est obligatoire',
             'puissance_solaire.integer' => 'La puissance solaire est un chiffre',
+            'puissance_solaire.required_if' => 'La puissance solaire est obligatoire',
             'type_bien_id.required' => 'Le type de bien est obligatoire',
             'type_annonce_id.required' => 'Le type d\'annonce est obligatoire',
             'classe_energie.required' => 'La classe énergétique est obligatoire',
@@ -146,6 +156,7 @@ class BienCrud extends Component
             $this->photo->storeAs('public/images', $imageName);
             $bien->photo = $imageName;
         }
+        //si solaire n'est pas selectionner remet la valeur a null
         if (!$this->solaire) {
             $this->puissance_solaire = null;
         }
@@ -154,7 +165,8 @@ class BienCrud extends Component
         $bien->lib = $this->lib;
         $bien->description = $this->description;
         $bien->prix = $this->prix;
-        $bien->classe_energie = $this->classe_energie;
+        //n'enregistrait pas comme A B C mais 1 2 3. a ete modifier pour
+        $bien->classe_energie = $this->classeEnergieList[$this->classe_energie];
         $bien->chambre = $this->chambre;
         $bien->sdb = $this->sdb;
         $bien->wc = $this->wc;
@@ -165,6 +177,7 @@ class BienCrud extends Component
         $bien->type_annonce_id = $this->type_annonce_id;
         $bien->save();
 
+        //enregistre les options biens
         $options = $bien->optionsBien ?? new OptionsBien();
         $options->bien_id = $bien->id;
         $options->co2 = $this->co2;
@@ -185,7 +198,8 @@ class BienCrud extends Component
     {
         return view('livewire.bien-crud')->extends("layouts.app");
     }
-    
+
+    //fonction qui ajoute le dynamisme au champs de puissance solaire
     public function toggleSolaire()
     {
         if (!$this->disabledForm) {

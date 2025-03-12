@@ -222,21 +222,32 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col-lg-6 mb-3 mb-lg-0">
-                            <select wire:model="type_chauffage_id" class="form-select @error('type_chauffage_id') is-invalid @enderror" @if($disabledForm) disabled @endif>
-                                <option value="">-- Type de chauffage --</option>
-                                @foreach($typeChauffage as $leType)
+                    <div class="row mt-3"> <!-- Début d'une ligne Bootstrap avec une marge en haut -->
+                        <div class="col-lg-6 mb-3 mb-lg-0"> <!-- Colonne Bootstrap prenant la moitié de la largeur sur grands écrans -->
+
+                            <!-- Sélecteur pour choisir un type de chauffage avec Livewire (wire:model) -->
+                            <select wire:model="type_chauffage_id"
+                                class="form-select @error('type_chauffage_id') is-invalid @enderror"
+                                @if($disabledForm) disabled @endif> <!-- Désactive le champ si $disabledForm est vrai -->
+
+                                <option value="">-- Type de chauffage --</option> <!-- Option par défaut -->
+
+                                @foreach($typeChauffage as $leType) <!-- Boucle pour afficher chaque type de chauffage -->
                                 <option value="{{ $leType->id }}">{{ $leType->type_chauffage }}</option>
                                 @endforeach
+
                             </select>
+
+                            <!-- Affichage d'un message d'erreur si la validation échoue -->
                             @error('type_chauffage_id')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong>{{ $message }}</strong> <!-- Message d'erreur renvoyé par la validation -->
                             </span>
                             @enderror
+
                         </div>
                     </div>
+
 
                     <div class="row mt-3">
                         <div class="offset-lg-8 col-lg-4 d-grid gap-2 d-md-flex justify-content-md-end">
@@ -259,12 +270,12 @@
     <div class="alert alert-danger alert-bottom mt-4" role="alert">{{Session::get('error')}} <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
     @endif
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 </div>

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('options_bien', function (Blueprint $table) {
             $table->id();
+            
+            //creation de liaison entre bien et options
             $table->unsignedBigInteger('bien_id');
             $table->foreign('bien_id')->references('id')->on('biens')->onDelete('cascade');
 
